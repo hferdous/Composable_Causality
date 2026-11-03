@@ -1,0 +1,23 @@
+Composable Causality (DTCD)
+Copyright 2026 Muhammad Hasan Ferdous and Md Osman Gani
+
+This product includes software developed at the Causal AI Lab,
+University of Maryland, Baltimore County.
+
+The source code is licensed under the Apache License, Version 2.0 (see LICENSE).
+The datasets and result files are licensed under CC BY 4.0
+(see LICENSE-CC-BY-4.0.txt).
+
+scripts/external/timegraph_c1.py is derived from the TimeGraph benchmark
+(https://github.com/hferdous/TimeGraph), Copyright (c) 2025 Muhammad Hasan
+Ferdous, and is used under the MIT License reproduced in that file.
+
+src/dtcd/baselines/dynotears_core.py is derived from CausalNex
+(https://github.com/mckinsey/causalnex), Copyright 2019-2020 QuantumBlack
+Visual Analytics Limited, licensed under the Apache License, Version 2.0. The
+original copyright header is retained in that file.
+
+Optional third-party dependencies (tigramite, causal-learn, lingam, statsmodels,
+dcor, torch, catenets, econml, autorank) are installed from their own
+distributions under their own licenses and are not redistributed here. Note
+that tigramite is licensed under the GNU GPL v3.

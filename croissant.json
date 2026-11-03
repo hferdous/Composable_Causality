@@ -1,0 +1,635 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileObject": "cr:fileObject",
+    "fileProperty": "cr:fileProperty",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "DTCD",
+  "alternateName": "Composable Causality",
+  "description": "DTCD (Datasets and Toolkit for Causal Discovery) generates multivariate time series with ground-truth contemporaneous and lagged causal graphs for benchmarking time-series causal discovery and conditional average treatment effect (CATE) estimation. Graph topology, structural mechanism, noise distribution, observation mask, and intervention policy are independent components that compose freely. Paired counterfactual twins are produced by caching the noise realization during the factual rollout and re-injecting it during the interventional rollout, so individual treatment effects are exact to floating-point precision. The release contains the generator, the reference benchmark scripts, and the result files behind every table and figure of the accompanying NeurIPS 2026 paper.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "url": "https://github.com/hferdous/Composable_Causality",
+  "sameAs": "https://github.com/hferdous/Composable_Causality",
+  "version": "1.0.0",
+  "datePublished": "2026-05-06",
+  "dateModified": "2026-10-30",
+  "citeAs": "@inproceedings{ferdous2026composable, title={Composable Causality: A Toolkit for Systematic Time-Series Causal Discovery and Treatment-Effect Benchmarking}, author={Ferdous, Muhammad Hasan and Gani, Md Osman}, booktitle={Advances in Neural Information Processing Systems (NeurIPS), Track on Evaluations and Datasets}, year={2026}}",
+  "citation": "Muhammad Hasan Ferdous and Md Osman Gani. Composable Causality: A Toolkit for Systematic Time-Series Causal Discovery and Treatment-Effect Benchmarking. Advances in Neural Information Processing Systems (NeurIPS), Track on Evaluations and Datasets, 2026.",
+  "keywords": [
+    "causal discovery",
+    "time series",
+    "treatment effect",
+    "benchmark",
+    "synthetic data",
+    "counterfactual",
+    "CATE"
+  ],
+  "creator": [
+    {
+      "@type": "sc:Person",
+      "name": "Muhammad Hasan Ferdous",
+      "email": "h.ferdous@umbc.edu",
+      "identifier": "https://orcid.org/0000-0002-7182-1274",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Causal AI Lab, University of Maryland, Baltimore County"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Md Osman Gani",
+      "email": "mogani@umbc.edu",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Causal AI Lab, University of Maryland, Baltimore County"
+      }
+    }
+  ],
+  "publisher": {
+    "@type": "sc:Organization",
+    "name": "University of Maryland, Baltimore County"
+  },
+  "rai:dataCollection": "Fully synthetic data generation via documented structural causal models. No real-world data are collected, scraped, or sourced from third parties. Every trajectory is produced by deterministic forward rollout of structural equations with cached noise realizations.",
+  "rai:dataCollectionType": "Synthetic",
+  "rai:dataCollectionMissingData": "Configurable. The library generates two missingness variants (MCAR and MNAR) as part of the reference benchmark. Under MCAR, each entry is masked independently with a configurable probability. Under MNAR, masking is implemented via self-thresholding (each variable's top-quantile values are masked).",
+  "rai:dataCollectionRawData": "Not applicable. No raw data exists; all data are generated programmatically.",
+  "rai:dataCollectionTimeframe": "Generated on demand. The reference benchmark in the accompanying paper was generated in May 2026 and run in about four hours of wall-clock time on an Apple M4 Mac mini (24 GB RAM, no GPU); additional experiments were run between July and October 2026.",
+  "rai:dataImputationProtocol": "No imputation is applied during dataset generation. Downstream baselines may apply their own imputation strategies (e.g., the VARLiNGAM_imp wrapper applies mean imputation before fitting); these are documented as part of each baseline wrapper.",
+  "rai:dataPreprocessingProtocol": "None. Data are emitted directly from the structural equations with no post-hoc transformation, normalization, or filtering.",
+  "rai:dataManipulationProtocol": "Configuration-driven. Users specify topology, structural mechanism, noise distribution, observation mask, and intervention policy through the library API. All transformations are documented in Section 3 of the paper and in docs/MANUAL.md.",
+  "rai:dataAnnotationProtocol": "Not applicable. Ground-truth causal graphs (contemporaneous and lagged adjacency matrices) are produced jointly with the data via the structural-equation rollout, not annotated post hoc.",
+  "rai:dataAnnotationPlatform": "Not applicable.",
+  "rai:dataAnnotationAnalysis": "Not applicable.",
+  "rai:annotationsPerItem": "Not applicable. Each generated trajectory is paired with deterministic, programmatic ground truth (full DAG, cached noise, observational mask).",
+  "rai:annotatorDemographics": "Not applicable. No human annotators involved.",
+  "rai:machineAnnotationTools": "Not applicable. Ground truth is produced by the structural-equation simulator itself, not by a separate annotation model.",
+  "rai:dataBiases": "Biases in the generated data are exactly those of the chosen data-generating process specified by the user. The library encourages controlled exploration of failure modes by varying one DGP axis at a time. The reference benchmark in the paper deliberately spans multiple mechanism, noise, drift, missingness, and seasonality variants to expose method-specific biases.",
+  "rai:dataUseCases": "Benchmarking time-series causal discovery algorithms (constraint-based, score-based, functional, Granger-style) and dynamic conditional average treatment effect estimators. Sensitivity analyses across DGP axes. Diagnostic identification of method failure modes. Evaluation that separates mechanisms with documented identifiability (linear non-Gaussian; linear Gaussian up to Markov equivalence) from those where it is not established (recursive nonlinear).",
+  "rai:dataLimitations": "Synthetic data only. Strong performance on DTCD is necessary but not sufficient for real-world deployment validity. The reference benchmark uses modest dimensionality (d in {4, 6, 8}) for tractability and human-inspectable ground truth; larger graphs are supported but not exhaustively benchmarked. See paper Section 6.1 for a full discussion of limitations.",
+  "rai:dataSocialImpact": "DTCD is a research benchmark; it does not deploy decisions, control physical systems, or process personal data. Its primary downstream effect is on methodological research. Identifiability documentation should reduce instances of methods being credited for performance on unidentifiable configurations. Risks from causal-discovery deployments (spurious causal claims influencing policy or medical decisions) are general to the field rather than specific to this dataset. See paper Section 6.2.",
+  "rai:personalSensitiveInformation": "None. All data are fully synthetic. No personally identifiable information, no sensitive attributes, no human subjects.",
+  "rai:dataReleaseMaintenancePlan": "Code is released under Apache-2.0 and data and result files under CC BY 4.0 at https://github.com/hferdous/Composable_Causality. Versioned releases follow semantic versioning. Issues and feature requests are tracked at https://github.com/hferdous/Composable_Causality/issues. The reference benchmark and every additional experiment are reproducible from the released scripts (bash reproduce.sh --full); no external data sources are required.",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "github-repository",
+      "name": "github-repository",
+      "description": "The DTCD GitHub repository: library, scripts, and released results.",
+      "contentUrl": "https://github.com/hferdous/Composable_Causality",
+      "encodingFormat": "git+https",
+      "sha256": "main"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "sample-trajectory-csv",
+      "name": "sample_trajectory.csv",
+      "description": "A sample trajectory from LinearTimeSeriesGenerator(n_vars=4, max_lag=2, random_state=42) with n_points=1000, which grounds the field declarations below. The full reference benchmark is regenerated by generate_datasets.py.",
+      "contentUrl": "https://raw.githubusercontent.com/hferdous/Composable_Causality/main/sample_dataset/sample_trajectory.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "2d5e306a567468c3fb255b51f55dae226411c56ceb090a780a8b2ffcbead33e2"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "generate-datasets-script",
+      "name": "generate_datasets.py",
+      "description": "Generates the reference benchmark: 9 graphs x 11 DGP variants (9 discovery, 2 CATE) x seeds 41 to 51, where seed 41 is the held-out tuning trajectory.",
+      "contentUrl": "https://raw.githubusercontent.com/hferdous/Composable_Causality/main/generate_datasets.py",
+      "encodingFormat": "text/x-python",
+      "sha256": "e5a41894af1dcc67cd15dc42a6cdeeb760d86de68c9fbeb7ae6a2581ced692d9"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "discovery-results-csv",
+      "name": "results.csv",
+      "description": "Causal discovery results of the reference benchmark: 6,480 rows (8 methods x 9 graphs x 9 DGP variants x 10 seeds). Source of paper Tables 1, 2, 7, 8, 11, 12, and 13 via paper/tables/.",
+      "contentUrl": "https://raw.githubusercontent.com/hferdous/Composable_Causality/main/benchmark_results/results.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "b2d464e80c0fda1d3fde2439a2d6ac71a97db135e885cf020b0291388a4af505"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "cate-results-csv",
+      "name": "cate_results.csv",
+      "description": "CATE estimation results of the reference benchmark: 720 rows (4 estimators x 9 graphs x 2 CATE variants x 10 seeds). Source of paper Tables 3 and 9 via paper/tables/.",
+      "contentUrl": "https://raw.githubusercontent.com/hferdous/Composable_Causality/main/benchmark_results/cate_results.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "23acea6cd0674b7c94f8ca8b121e252e0e6fb696c3832e2998fb8ccc8950ca47"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "benchmark-results",
+      "name": "benchmark-results",
+      "description": "Every result file behind the paper's tables and figures (varsortability audits, tuning-protocol check, scalability sweeps, TimeGraph C1 runs, mechanism study). benchmark_results/README.md documents each file and column.",
+      "containedIn": {
+        "@id": "github-repository"
+      },
+      "encodingFormat": "text/csv",
+      "includes": "benchmark_results/*.csv"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "time_series_trajectory",
+      "name": "time_series_trajectory",
+      "description": "Multivariate time series trajectory generated by the DTCD library. Each row is one timestep; columns include the observed variables X1..X_d and a time index. Ground-truth contemporaneous and lagged adjacency matrices, the cached noise realization, and the observational mask are produced jointly with the trajectory and are accessible via the Python API; they are not stored in the CSV representation but are recoverable by re-running the generator with the same random_state.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "time_series_trajectory/X1",
+          "name": "X1",
+          "description": "Observed value of variable X1 at each timestep.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "sample-trajectory-csv"
+            },
+            "extract": {
+              "column": "X1"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "time_series_trajectory/X2",
+          "name": "X2",
+          "description": "Observed value of variable X2 at each timestep.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "sample-trajectory-csv"
+            },
+            "extract": {
+              "column": "X2"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "time_series_trajectory/X3",
+          "name": "X3",
+          "description": "Observed value of variable X3 at each timestep.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "sample-trajectory-csv"
+            },
+            "extract": {
+              "column": "X3"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "time_series_trajectory/X4",
+          "name": "X4",
+          "description": "Observed value of variable X4 at each timestep.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "sample-trajectory-csv"
+            },
+            "extract": {
+              "column": "X4"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "time_series_trajectory/time",
+          "name": "time",
+          "description": "Discrete time index.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "sample-trajectory-csv"
+            },
+            "extract": {
+              "column": "time"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "discovery_results",
+      "name": "discovery_results",
+      "description": "One row per (method, graph, DGP variant, seed) of the reference discovery benchmark.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/method",
+          "name": "method",
+          "description": "Discovery method.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "method"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/dataset_id",
+          "name": "dataset_id",
+          "description": "Graph and DGP variant, for example d4_tau2_linear.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "dataset_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/dgp_variant",
+          "name": "dgp_variant",
+          "description": "DGP variant.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "dgp_variant"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/d",
+          "name": "d",
+          "description": "Number of variables.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "d"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/tau",
+          "name": "tau",
+          "description": "Maximum lag of the true graph.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "tau"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/seed",
+          "name": "seed",
+          "description": "Evaluation seed (42 to 51).",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "seed"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/status",
+          "name": "status",
+          "description": "ok, error, skipped_no_missing_support, or skipped_compute_budget.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "status"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/f1_orient",
+          "name": "f1_orient",
+          "description": "Oriented F1 on the unrolled window graph.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "f1_orient"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/shd_joint",
+          "name": "shd_joint",
+          "description": "Structural Hamming distance on the unrolled window graph.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "shd_joint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/shd_norm",
+          "name": "shd_norm",
+          "description": "SHD divided by the number of true edges.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "shd_norm"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/prec",
+          "name": "prec",
+          "description": "Precision of oriented edges.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "prec"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/rec",
+          "name": "rec",
+          "description": "Recall of oriented edges.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "rec"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/auprc",
+          "name": "auprc",
+          "description": "Area under the precision-recall curve.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "auprc"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "discovery_results/runtime_s",
+          "name": "runtime_s",
+          "description": "Fit time in seconds.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "discovery-results-csv"
+            },
+            "extract": {
+              "column": "runtime_s"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "cate_results",
+      "name": "cate_results",
+      "description": "One row per (estimator, graph, CATE variant, seed) of the reference CATE benchmark.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/method",
+          "name": "method",
+          "description": "CATE estimator.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "method"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/dataset_id",
+          "name": "dataset_id",
+          "description": "Graph and CATE variant.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "dataset_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/dgp_variant",
+          "name": "dgp_variant",
+          "description": "CATE variant (cate_linear or cate_nonlinear).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "dgp_variant"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/d",
+          "name": "d",
+          "description": "Number of variables.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "d"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/tau",
+          "name": "tau",
+          "description": "Maximum lag of the true graph.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "tau"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/seed",
+          "name": "seed",
+          "description": "Evaluation seed (42 to 51).",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "seed"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/status",
+          "name": "status",
+          "description": "ok or error.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "status"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/pehe",
+          "name": "pehe",
+          "description": "Precision in estimating heterogeneous effects, against exact counterfactual twins.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "pehe"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/ate_abs_error",
+          "name": "ate_abs_error",
+          "description": "Absolute error of the average treatment effect.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "ate_abs_error"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cate_results/runtime_s",
+          "name": "runtime_s",
+          "description": "Fit time in seconds.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "cate-results-csv"
+            },
+            "extract": {
+              "column": "runtime_s"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

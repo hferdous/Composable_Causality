@@ -1,0 +1,24 @@
+# Data License: CC BY 4.0
+
+The data files in this repository are released under the Creative Commons
+Attribution 4.0 International (CC BY 4.0) license. This covers:
+
+- `sample_dataset/`, the sample trajectory distributed with the release;
+- `benchmark_results/`, every result file reported in the paper;
+- datasets you generate with the released configurations (for example the
+  reference grid written to `data/datasets/` by `generate_datasets.py`).
+
+The source code is licensed separately under the Apache License 2.0 (see `LICENSE`).
+
+You are free to:
+
+- **Share**, that is, copy and redistribute the material in any medium or format;
+- **Adapt**, that is, remix, transform, and build upon the material for any purpose, even commercially.
+
+Under the following term:
+
+- **Attribution**. You must give appropriate credit, provide a link to the
+  license, and indicate if changes were made. Please cite the paper listed in
+  `CITATION.cff`.
+
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode

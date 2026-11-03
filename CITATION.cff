@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software or its benchmark data, please cite the paper below."
+title: "Composable Causality (DTCD): Datasets and Toolkit for Causal Discovery"
+version: 1.0.0
+license: Apache-2.0
+repository-code: "https://github.com/hferdous/Composable_Causality"
+type: software
+authors:
+  - family-names: Ferdous
+    given-names: Muhammad Hasan
+    email: h.ferdous@umbc.edu
+    orcid: "https://orcid.org/0000-0002-7182-1274"
+    affiliation: "Causal AI Lab, University of Maryland, Baltimore County"
+  - family-names: Gani
+    given-names: Md Osman
+    email: mogani@umbc.edu
+    affiliation: "Causal AI Lab, University of Maryland, Baltimore County"
+keywords:
+  - causal discovery
+  - time series
+  - benchmark
+  - synthetic data
+  - counterfactual
+  - treatment effect estimation
+preferred-citation:
+  type: conference-paper
+  title: "Composable Causality: A Toolkit for Systematic Time-Series Causal Discovery and Treatment-Effect Benchmarking"
+  authors:
+    - family-names: Ferdous
+      given-names: Muhammad Hasan
+      orcid: "https://orcid.org/0000-0002-7182-1274"
+    - family-names: Gani
+      given-names: Md Osman
+  collection-title: "Advances in Neural Information Processing Systems (NeurIPS), Track on Evaluations and Datasets"
+  conference:
+    name: "40th Conference on Neural Information Processing Systems (NeurIPS 2026)"
+  year: 2026
