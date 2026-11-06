@@ -44,7 +44,9 @@
     "separator": "cr:separator",
     "source": "cr:source",
     "subField": "cr:subField",
-    "transform": "cr:transform"
+    "transform": "cr:transform",
+    "prov": "http://www.w3.org/ns/prov#",
+    "isSyntheticData": "rai:isSyntheticData"
   },
   "@type": "sc:Dataset",
   "name": "DTCD",
@@ -95,6 +97,7 @@
   },
   "rai:dataCollection": "Fully synthetic data generation via documented structural causal models. No real-world data are collected, scraped, or sourced from third parties. Every trajectory is produced by deterministic forward rollout of structural equations with cached noise realizations.",
   "rai:dataCollectionType": "Synthetic",
+  "rai:isSyntheticData": true,
   "rai:dataCollectionMissingData": "Configurable. The library generates two missingness variants (MCAR and MNAR) as part of the reference benchmark. Under MCAR, each entry is masked independently with a configurable probability. Under MNAR, masking is implemented via self-thresholding (each variable's top-quantile values are masked).",
   "rai:dataCollectionRawData": "Not applicable. No raw data exists; all data are generated programmatically.",
   "rai:dataCollectionTimeframe": "Generated on demand. The reference benchmark in the accompanying paper was generated in May 2026 and run in about four hours of wall-clock time on an Apple M4 Mac mini (24 GB RAM, no GPU); additional experiments were run between July and October 2026.",
@@ -113,6 +116,15 @@
   "rai:dataSocialImpact": "DTCD is a research benchmark; it does not deploy decisions, control physical systems, or process personal data. Its primary downstream effect is on methodological research. Identifiability documentation should reduce instances of methods being credited for performance on unidentifiable configurations. Risks from causal-discovery deployments (spurious causal claims influencing policy or medical decisions) are general to the field rather than specific to this dataset. See paper Section 6.2.",
   "rai:personalSensitiveInformation": "None. All data are fully synthetic. No personally identifiable information, no sensitive attributes, no human subjects.",
   "rai:dataReleaseMaintenancePlan": "Code is released under Apache-2.0 and data and result files under CC BY 4.0 at https://github.com/hferdous/Composable_Causality. Versioned releases follow semantic versioning. Issues and feature requests are tracked at https://github.com/hferdous/Composable_Causality/issues. The reference benchmark and every additional experiment are reproducible from the released scripts (bash reproduce.sh --full); no external data sources are required.",
+  "prov:wasDerivedFrom": [],
+  "prov:wasGeneratedBy": [
+    {
+      "@type": "prov:Activity",
+      "prov:type": "Data generation",
+      "prov:label": "Synthetic data generation and reference benchmark run",
+      "prov:description": "Time series are simulated from user-configured structural causal models with the DTCD generator (Python, seeded). The reference benchmark applies discovery and CATE methods to the generated data. No real-world source data are used."
+    }
+  ],
   "distribution": [
     {
       "@type": "cr:FileObject",
